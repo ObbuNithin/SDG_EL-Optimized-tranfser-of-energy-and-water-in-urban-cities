@@ -1,59 +1,56 @@
-# secure p2p
+# CityResource AI
 
-A browser-based, peer-to-peer (P2P) file sharing system that provides secure, real-time file transfers with end-to-end encryption.
+CityResource AI is an intelligent, multi-objective framework for the resilient optimization of urban energy and water resources. It leverages a hybrid of AI and mathematical programming to create a robust decision support system for smart cities.
 
 ---
 
 ## 📜 Description
 
-Traditional file sharing methods like email or cloud storage expose your data to interception and unauthorized access by third parties. This project solves that problem by allowing two users to exchange files directly through their browsers, with no central server storing the files.
+Modern cities face increasing stress on their critical energy and water systems due to rapid urban growth, climate change, and unexpected disruptions. Most existing resource management solutions operate in isolation and are reactive rather than predictive, lacking real-time adaptability.
 
-It uses **WebRTC** for a direct P2P connection and a strong cryptographic stack for security. An **Elliptic Curve Diffie-Hellman (ECDH)** key exchange securely creates a shared key, and files are encrypted chunk-by-chunk using **AES-GCM**, ensuring confidentiality and data integrity. The entire application runs in the browser, requiring no extra software or plugins.
-
----
-
-## ✨ Key Features
-
-* **End-to-End Encryption**: File transfers are secured using AES-GCM authenticated encryption.
-* **Secure Key Exchange**: Uses Elliptic Curve Diffie-Hellman (ECDH) to establish a shared secret key without exposing it to any intermediary.
-* **Serverless File Transfer**: Files are sent directly between peers using WebRTC. A minimal signaling server is used only to establish the initial connection.
-* **Browser-Based**: Runs entirely in modern web browsers (Chrome, Firefox, etc.) without needing plugins or extensions.
-* **Large File Support**: Efficiently handles large files by breaking them into smaller chunks for transfer.
+**CityResource AI** addresses this challenge by providing an integrated, AI-driven platform that intelligently allocates both energy and water. The system uses a combination of **Reinforcement Learning (RL)**, **Machine Learning (ML)** forecasting, and **Linear/Nonlinear Programming (LP/NLP)** to adapt to real-time conditions, predict future demand, and optimize resource distribution for sustainability and resilience. It also includes a full-stack simulation platform to model and visualize resource dynamics in a smart city environment.
 
 ---
 
-## 🏗️ Architecture
+## ✨ Core Features
 
-The system uses a modular, layered architecture for security and performance.
+The framework is built around five key optimization modules and a full-stack simulation interface:
 
-* **User Interface (UI) Layer**: Built with React.js, this layer handles user interaction for selecting files and managing connections.
-* **Application Logic / Controller Layer**: The core of the application, managing peer discovery, session tokens, and file selection logic.
-* **Encryption & Security Layer**: Manages all cryptographic operations, including the ECDH key exchange and AES-GCM encryption/decryption of files.
-* **Network Communication Layer**: Handles the real-time P2P data transmission using WebRTC and uses STUN/TURN servers for NAT traversal to connect peers across different networks.
-* **Platform/Device Layer**: Ensures cross-platform compatibility by using standard browser APIs for file access.
+* **⚡ RL-Based Energy Scheduling** – A Reinforcement Learning agent dynamically schedules energy storage (charging/discharging) and load shedding to minimize unmet demand, learning adaptive strategies for handling energy shortfalls.
+* **Forecasting-Driven Energy Allocation** – Employs **XGBoost** and **LightGBM** models to forecast energy demand and solar generation, feeding these predictions into a Linear Programming model to minimize costs and preemptively allocate resources.
+* **Disruption-Aware Energy Optimization** – Uses **Random Forest** and **Gradient Boosting** models to predict the likelihood and severity of grid outages or solar dips, allowing the system to adjust energy allocation in real-time to enhance resilience.
+* **💧 Hybrid Water Allocation Engine** – Utilizes both Linear and Nonlinear Programming to perform optimal water allocation across municipal, agricultural, and industrial sectors while respecting source constraints and sectoral priorities.
+* **Sustainable Groundwater Management** – Determines the ideal daily groundwater extraction volume, balancing the immediate need for supply with the long-term sustainability of the aquifer, even factoring in the energy cost of pumping.
+* **🏙️ Full-Stack City Simulation** – A complete simulation platform with a **Python (Flask)** backend and a **React.js** frontend. It simulates city demographics, automatically calculates water demand, and displays results on interactive dashboards.
+
+---
+
+## 🏗️ System Architecture
+
+CityResource AI is designed as a modular, full-stack platform that integrates advanced optimization with real-time simulation and visualization.
+
+1. **Data Layer** – Consumes real-world time-series data for energy and water, sourced from platforms like NITI Aayog and the Central Ground Water Board (CGWB).
+2. **Backend Engine** – Implemented in **Python** using **Flask**, the backend handles all data processing, manages the **SQLite** database, and runs the core optimization and machine learning models.
+3. **Frontend Interface** – Developed using **React.js**, the user interface provides interactive dashboards to visualize building-wise and city-wide water demand, allocation trends, and optimization results.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Frontend**: React.js (v17+), Material-UI (MUI), Socket.IO Client
-* **Backend**: Node.js (v16+), Express.js, Socket.IO (v4+)
-* **Core Technologies**: WebRTC, Web Crypto API (SubtleCrypto)
-* **Development Tools**: Visual Studio Code, npm/yarn
+* **Backend** – Python, Flask  
+* **Frontend** – React.js  
+* **Database** – SQLite  
+* **Machine Learning / RL** – scikit-learn (Random Forest, Gradient Boosting), XGBoost, LightGBM  
+* **Optimization** – SciPy (for LP/NLP solving)  
+* **Data Handling** – pandas, NumPy  
 
 ---
 
-## 🚀 Getting Started
+## 📖 Usage & Simulation Flow
 
-### Prerequisites
+The system is designed as a decision support and simulation tool. The typical workflow is automated:
 
-* Node.js (v16 or later)
-* npm or yarn package manager
-* A modern web browser with WebRTC support
-
-### Installation & Setup
-
-**1. Clone the repository:**
-```bash
-git clone [https://github.com/your-username/secure-p2p.git](https://github.com/your-username/secure-p2p.git)
-cd secure-p2p
+1. **Initialization** – A city layout is initialized in the database, with a randomized number of buildings, houses, and residents to ensure variability.
+2. **Demand Calculation** – Water and energy demand are calculated automatically based on the simulated population and historical patterns. For example, daily water requirements are calculated at 175 liters per person.
+3. **Optimization Run** – The backend runs the suite of energy and water optimization modules, which make decisions on resource allocation, storage, and extraction based on the current state and forecasts.
+4. **Visualization** – The results are sent to the React frontend via REST APIs. Users can then explore the interactive dashboards to see city-wide demand, per-building allocations, unmet demand analysis, and other key performance metrics.
